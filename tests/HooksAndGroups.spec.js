@@ -1,13 +1,16 @@
-import {test, expect, chromium} from '@playwright/test'
-let page
-let browser
+import {
+    test,
+    chromium
+} from '@playwright/test'
 
-test.beforeAll(async()=>{
-browser=await chromium.launch()
-page= await browser.newPage()
+let page;
+let browser;
+
+test.beforeAll(async () => {
+    browser = await chromium.launch()
+    page = await browser.newPage()
 })
-
-test.beforeEach( async() => {
+test.beforeEach(async () => {
     await page.goto('https://www.saucedemo.com/')
     await page.locator('[data-test="username"]').fill('standard_user')
     await page.locator('[data-test="password"]').fill('secret_sauce')
@@ -15,15 +18,17 @@ test.beforeEach( async() => {
     await page.waitForURL('https://www.saucedemo.com/inventory.html')
 })
 
-test.afterAll(async() => {
+test.afterAll(async () => {
     await page.close()
 })
 
-test('Hooks and Groups Practice', async() => {
+test('Hooks and Groups Practice', async () => {
     await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
     await page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]').click();
     await page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
-    await page.locator('a').filter({ hasText: '3' }).click();
+    await page.locator('a').filter({
+        hasText: '3'
+    }).click();
     await page.locator('[data-test="checkout"]').click();
     await page.locator('[data-test="firstName"]').fill('Shaaf');
     await page.locator('[data-test="lastName"]').fill('Banoori');

@@ -1,12 +1,17 @@
-import {test, expect} from '@playwright/test'
+import {
+    test,
+    expect
+} from '@playwright/test'
 
-test('Assertions Practice', async ({page}) => {
+test('Assertions Practice', async ({
+    page
+}) => {
     await page.goto('https://kitchen.applitools.com/')
-    await page.pause() 
+    await page.pause()
 
     //Check if the element is present or not
     await expect(page.locator('text=The Kitchen')).toHaveCount(1)
-    if(await page.$('text=The Kitchen')){
+    if (await page.$('text=The Kitchen')) {
         await page.locator('text=The Kitchen').click()
     }
 
@@ -25,11 +30,11 @@ test('Assertions Practice', async ({page}) => {
     //Check attribute value
     await expect(page.locator('text=The Kitchen')).toHaveAttribute('class', 'chakra-heading css-dpmy2a')
     await expect(page.locator('text=The Kitchen')).toHaveClass('chakra-heading css-dpmy2a')
-    
+
     //Check page URL and Title
     await expect(page).toHaveURL('https://kitchen.applitools.com/')
     await expect(page).toHaveTitle('The Kitchen')
-    
+
     //Visual validation with scrteenshot
     await expect(page).toHaveScreenshot()
 })
