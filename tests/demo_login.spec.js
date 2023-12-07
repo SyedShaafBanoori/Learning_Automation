@@ -1,5 +1,4 @@
 import {test, expect} from '@playwright/test'
-
 //Site 01
 test ('Demo Login Script 01', async ({page}) => {
     await page.goto('https://demo.applitools.com/')
