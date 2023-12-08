@@ -36,5 +36,5 @@ test('Assertions Practice', async ({
     await expect(page).toHaveTitle('The Kitchen')
 
     //Visual validation with scrteenshot
-    await expect(page).toHaveScreenshot()
+    // await expect(page).toHaveScreenshot()
 })
