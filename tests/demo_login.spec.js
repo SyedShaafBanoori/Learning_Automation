@@ -42,7 +42,7 @@ test('Demo Login Script 02', async ({
 })
 
 //Site 03
-test.only('Demo Login Script 03', async ({
+test('Demo Login Script 03', async ({
     page
 }) => {
     await page.goto('https://admin-demo.nopcommerce.com/login?ReturnUrl=%2Fadmin%2F')

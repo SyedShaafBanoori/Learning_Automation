@@ -48,7 +48,7 @@ test('Different Styles', async() => {
     await page.locator('.card.card-primary > div:nth-child(2) > div:nth-child(8) option:nth-child(3)').click
 })
 
-test.only('General Elements', async() => {
+test('General Elements', async() => {
     // Text Enabled & Disabled
     await expect(page.locator('form:nth-child(1) > div > div:nth-child(1) > div > input')).toBeEnabled()
     await expect(page.locator('form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div > input')).toBeDisabled()
