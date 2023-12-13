@@ -59,7 +59,7 @@ test('General Elements', async() => {
     await page.locator('form > div:nth-child(4) > input').fill('Warning')
     await page.locator('form > div:nth-child(5) > input').fill('Error')
     //Checkboxes
-    await expect(page.locator('form:nth-child(1) > div:nth-child(6) > div:nth-child(1) > div > div:nth-child(1) > input ')).not.toBeChecked()
+     expect(await page.locator('form:nth-child(1) > div:nth-child(6) > div:nth-child(1) > div > div:nth-child(1) > input ').isChecked()).toBeFalsy()
     await expect(page.locator('form:nth-child(1) > div:nth-child(6) > div:nth-child(1) > div > div:nth-child(2) > input ')).toBeChecked()
     await expect(page.locator('form:nth-child(1) > div:nth-child(6) > div:nth-child(1) > div > div:nth-child(3) > input ')).toBeDisabled()
     //Radio Buttons
@@ -70,7 +70,7 @@ test('General Elements', async() => {
     await page.selectOption('form>div:nth-child(7)>div:nth-child(1)>div>select', 'option 4') 
     expect(await page.locator('form>div:nth-child(7)>div:nth-child(2)>div>select')).toBeDisabled()
     await page.selectOption('form>div:nth-child(8)>div:nth-child(1)>div>select', 'option 3')
-    expect(await page.locator('form>div:nth-child(8)>div:nth-child(2)>div>select')).toBeDisabled()
+    expect(await page.locator('form>div:nth-child(8)>div:nth-child(2)>div>select').isDisabled()).toBeTruthy()
 })
 
 test('Input Addon', async() => {
@@ -97,13 +97,41 @@ test('Input Addon', async() => {
 
 test('Custom Elements', async() => {
     //Checkboxes
-    // expect(await page.locator('.col-md-6>div:nth-child(4)>div:nth-child(2)>form>div>div:nth-child(1)>div>div:nth-child(1)>#customCheckbox1')).not.toBeChecked()
-    // expect(await page.locator('.col-md-6>div:nth-child(4)>div:nth-child(2)>form>div>div:nth-child(1)>div>div:nth-child(2)>#customCheckbox2')).toBeChecked()
-    // expect(await page.locator('.col-md-6>div:nth-child(4)>div:nth-child(2)>form>div>div:nth-child(1)>div>div:nth-child(3)>#customCheckbox3')).toBeDisabled()
-    // expect(await page.locator('form>div>div:nth-child(1)>div>div:nth-child(4)>input')).toBeChecked()
-    // expect(await page.locator('form>div>div:nth-child(1)>div>div:nth-child(5)>input')).toBeChecked()
+    expect(await page.locator('#customCheckbox1').isChecked()).toBeFalsy()
+    expect(await page.locator('#customCheckbox2').isChecked()).toBeTruthy()
+    expect(await page.locator('#customCheckbox3').isDisabled()).toBeTruthy()
+    expect(await page.locator('#customCheckbox4').isChecked()).toBeTruthy()
+    expect(await page.locator('#customCheckbox5').isChecked()).toBeTruthy()
     //Radio Buttons
-    // expect(await page.locator('').isChecked()).toBeFalsy;
-    // expect(await page.locator('').isChecked()).toBeTruthy;
-    // expect(await page.locator('')).toHaveAttribute('disabled')
+    expect(await page.locator('#customRadio1').isChecked()).toBeFalsy()
+    expect(await page.locator('#customRadio2').isChecked()).toBeTruthy()
+    expect(await page.locator('#customRadio3').isDisabled()).toBeTruthy()
+    expect(await page.locator('#customRadio4').isChecked()).toBeTruthy()
+    expect(await page.locator('#customRadio5').isChecked()).toBeFalsy()
+    //Custom Options
+    expect(await page.selectOption('form>div:nth-child(2)>div:nth-child(1)>div>select','option 2'))
+    expect(await page.locator('form div:nth-child(2)>div:nth-child(2)>div>select').isDisabled()).toBeTruthy()
+    //Custom Multiple Options
+    expect(await page.selectOption('form>div:nth-child(3)>div:nth-child(1)>div>select','option 3'))
+    expect(await page.locator('form>div:nth-child(3)>div:nth-child(2)>div>select').isDisabled()).toBeTruthy()
+    //Toggle Switch
+    expect(await page.locator('#customSwitch1').isChecked()).toBeFalsy()
+    await page.locator('form>div:nth-child(5)>div>label').click()
+    expect(await page.locator('#customSwitch3').isChecked()).toBeTruthy()
+    expect(await page.locator('#customSwitch2').isDisabled()).toBeTruthy()
+    //Custom Range
+    await page.locator('#customRange1').click()
+    await page.locator('#customRange2').click()
+    await page.locator('#customRange3').click()
+    //Choose File
+    await page.locator('#customFile').click();
+  await page.locator('#customFile').setInputFiles('question1.docx')
+})
+
+test('Horizontal Form', async() => {
+    await page.locator('#inputEmail3').fill('TestEmail@gmail.com')
+    await page.locator('#inputPassword3').fill('TestPassword12345@#$%')
+    await page.locator('#exampleCheck2').click()
+    await page.locator('form>div>button.btn.btn-info').click()
+    await page.locator('form>div>button.btn.btn-default.float-right').click()
 })
