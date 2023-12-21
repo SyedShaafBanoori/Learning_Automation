@@ -1,7 +1,9 @@
+
+import {chromium} from '@playwright/test'
 export class SignUp {
-    constructor(page,browser) {
-        this.browser=browser
+    constructor(page) {
         this.page=page
+        this.sfcc
         this.Fnamefield = '#registration-form-fname'
         this.Lnamefield = '#registration-form-lname'
         this.Emailfield = '#registration-form-email'
@@ -10,15 +12,19 @@ export class SignUp {
         this.CreateAcntBtn = '.btn.btn-block.btn-primary.registration-btn'
     }
 
-    async gotopage() {
-        const context1 = await this.browser.newContext({
+    async gotosfcc() {
+        const browser = await chromium.launch()
+        const context = await browser.newContext({
             httpCredentials: {
               username: 'storefront',
               password: 'KATUjwEny4Nya29u',
             }  
         })
-    this.page = await context1.newPage()
-    await this.page.goto('https://sfcc.petfoodking.com/signin')
+        this.sfcc= await context.newPage()
+    await this.sfcc.goto('https://sfcc.petfoodking.com/signin')
+    }
+    async gotopage() {
+    await this.page.goto('https://www.google.com')
     }
 
     async createaccount(FName, LName, Email, Pass) {
@@ -37,11 +43,11 @@ export class SignUp {
         }
 
 
-        await this.page.locator(this.Fnamefield).fill(FName)
-        await this.page.locator(this.Lnamefield).fill(LName)
-        await this.page.locator(this.Emailfield).fill(Email)
-        await this.page.locator(this.Passwordfield).fill(Pass)
-        await this.page.locator(this.Rpasswordfield).fill(Pass)
-        await this.page.locator(this.CreateAcntBtn).click()
+        await this.sfcc.locator(this.Fnamefield).fill(FName)
+        await this.sfcc.locator(this.Lnamefield).fill(LName)
+        await this.sfcc.locator(this.Emailfield).fill(Email)
+        await this.sfcc.locator(this.Passwordfield).fill(Pass)
+        await this.sfcc.locator(this.Rpasswordfield).fill(Pass)
+        await this.sfcc.locator(this.CreateAcntBtn).click()
     }
 }
