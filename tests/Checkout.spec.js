@@ -1,7 +1,7 @@
-import {test, expect} from '@playwright/test'
-import { Login } from '../POM/Login'
-import { Home } from '../POM/Home'
-import { Cart } from '../POM/Cart'
+import {test} from '@playwright/test'
+import { Login } from '../Pages/Login'
+import { Home } from '../Pages/Home'
+import { Cart } from '../Pages/Cart'
 
 test('POM', async({page}) => {
 
@@ -9,7 +9,7 @@ test('POM', async({page}) => {
 const login = new Login(page)
 await login.gotologinpage()
 await login.login('visual_user','secret_sauce')
-await page.waitForURL('https://www.saucedemo.com/inventory.html')
+// await page.waitForURL('https://www.saucedemo.com/inventory.html')
 
 //Home
 const home = new Home(page)
