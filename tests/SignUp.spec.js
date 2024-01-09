@@ -7,9 +7,9 @@ test('Sign Up', async () => {
   await signup.gotosfcc()
   await signup.createaccount('Mansoor', 'QA', 'testallivet@gmail.com', 'Test@123')
   
-});
+})
+
 test('1 Up', async ({page}) => {
   const signup = new SignUp(page)
   await signup.gotopage()
-  
 })
